@@ -21,7 +21,7 @@ database
 
 
 app.get('/', (req, res) => {
-    res.send('Hello World! 2024')
+    res.send('Welcome to Core API using expressJs')
 })
 
 
