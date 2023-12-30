@@ -6,7 +6,7 @@ const moment = require('moment')
 const { body, validationResult } = require('express-validator')
 
 // import DB
-const con = require('../config/database')
+const con = require('../configs/database.config')
 
 
 // index post
