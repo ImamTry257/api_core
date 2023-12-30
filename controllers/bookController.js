@@ -59,3 +59,88 @@ exports.all = async ( req, res ) => {
 	}
 
 }
+
+// find by id
+exports.find = async ( req, res ) => {
+	try {
+
+		const { id } = req.params
+
+		// find book by id
+		const book = await Book.findOne({
+			where : {
+				id : id
+			}
+		}) 
+
+		// check data book
+		if ( !book ) { // empty data
+
+			return res.status(404).json({
+				status: 404,
+				success: false,
+				message: 'Data not found'
+			})
+		} else {
+
+			return res.status(200).json({
+				status: 200,
+				success: true,
+				data: {
+					book : book
+				}
+			})
+
+		}
+	} catch ( err ) {
+		console.log(err)
+
+		return res.status(500).json({
+			status: 500,
+			success: false,
+			message: 'Internal Server Error'
+		})
+	}
+}
+
+// update data
+exports.update =  async( req, res ) => {
+
+	try {
+
+		let { id } = req.params
+
+		let { title, author, summary, publisher } = req.body
+
+		// update data
+		const updateBook = await Book.update(req.body, {
+			where : {
+				id : id
+			}
+		})
+
+		// check status update data
+		if ( !updateBook[0] ) {
+			return res.status(200).json({
+				success : false,
+				status: 200,
+				message: 'Update data book failed'
+			})
+		}
+
+		return res.status(200).json({
+			success : true,
+			status: 200,
+			message: 'Update data book successfully'
+		})
+
+	}catch ( err ) {
+		console.log(err)
+
+		return res.status(500).json({
+			status: 500,
+			success: false,
+			message: 'Internal Server Error'
+		})
+	}
+}

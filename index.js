@@ -11,7 +11,7 @@ app.use(cors())
 const database = require('./database')
 
 database
-    .sync({ force: true })
+    .sync({ force: false })
     .then( () => {
         console.info("database synced")
     })
