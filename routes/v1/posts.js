@@ -6,19 +6,19 @@ const moment = require('moment')
 const { body, validationResult } = require('express-validator')
 
 // import DB
-const con = require('../configs/database.config')
+const con = require('../../configs/database.config')
 
 
 // index post
 router.get('/', (req, res) => {
     // query
     con.query('SELECT * FROM tbl_posts as s WHERE s.deleted_at IS NULL ORDER BY id DESC', (err, rows) => {
-        if ( err ) {
+        if (err) {
             return res.status(500).json({
                 status: false,
                 message: 'Internal Server Error'
             })
-        }else {
+        } else {
             return res.status(200).json({
                 status: true,
                 message: 'List Data Posts',
@@ -38,7 +38,7 @@ router.post('/store', [
 
     const errors = validationResult(req)
 
-    if ( !errors.isEmpty() ) {
+    if (!errors.isEmpty()) {
         return res.status(422).json({
             errors: errors.array()
         })
@@ -56,13 +56,13 @@ router.post('/store', [
     // insert data
     con.query('insert into tbl_posts set ?', formData, function (err, rows) {
 
-        if ( err ) {
+        if (err) {
             console.log(err)
             return res.status(500).json({
                 status: false,
                 message: 'Internal Server Error'
             })
-        }else {
+        } else {
             return res.status(201).json({
                 status: true,
                 message: 'Insert Data Successfully',
@@ -73,12 +73,12 @@ router.post('/store', [
 })
 
 // show post
-router.get('/(:id)', function(req, res){
+router.get('/(:id)', function (req, res) {
 
     let id = req.params.id
     console.log(id)
 
-    con.query(`select * from tbl_posts as s where s.id = ${id}`, function ( err, rows ) {
+    con.query(`select * from tbl_posts as s where s.id = ${id}`, function (err, rows) {
         // check error
         if (err) {
             // debug error message
@@ -96,14 +96,14 @@ router.get('/(:id)', function(req, res){
                 status: false,
                 message: 'Data Post Not Found!',
             })
-        }else {
+        } else {
             return res.status(200).json({
                 status: true,
                 message: 'Detail Data Post',
                 data: rows[0]
             })
         }
-    } )
+    })
 })
 
 
@@ -119,7 +119,7 @@ router.patch('/update/:id', [
     const errors = validationResult(req)
 
     // send error message
-    if ( !errors.isEmpty() ) {
+    if (!errors.isEmpty()) {
         return res.status(422).json({
             errors: errors.array()
         })
@@ -139,13 +139,13 @@ router.patch('/update/:id', [
     // insert data
     con.query(`update tbl_posts as s set ? where s.id = ${id}`, formData, function (err, rows) {
 
-        if ( err ) {
+        if (err) {
             console.log(err)
             return res.status(500).json({
                 status: false,
                 message: 'Internal Server Error'
             })
-        }else {
+        } else {
             return res.status(200).json({
                 status: true,
                 message: 'Update Data Successfully',
@@ -156,23 +156,23 @@ router.patch('/update/:id', [
 })
 
 // softdelete
-router.post('/delete/(:id)', function(req, res) {
-    
+router.post('/delete/(:id)', function (req, res) {
+
     let id = req.params.id
 
     let formData = {
         deleted_at: moment().format('YY-MM-DD HH:mm:ss')
     }
 
-    con.query(`update tbl_posts as s set ? where s.id = ${id}`, formData, function(err, rows) {
+    con.query(`update tbl_posts as s set ? where s.id = ${id}`, formData, function (err, rows) {
 
-        if ( err ) {
+        if (err) {
             console.log(err)
             return res.status(500).json({
                 status: false,
                 message: 'Internal Server Error'
             })
-        }else {
+        } else {
             return res.status(200).json({
                 status: true,
                 message: 'Delete Data Successfully',

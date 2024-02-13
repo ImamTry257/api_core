@@ -1,8 +1,8 @@
 // init model
-const Book = require('../models/book')
+const Book = require('../../models/book')
 
 // store method
-exports.create = async ( req, res ) => {
+exports.create = async (req, res) => {
 
 	try {
 		// init param body
@@ -20,9 +20,9 @@ exports.create = async ( req, res ) => {
 			status: 201,
 			success: true,
 			message: 'Data Buku berhasil dibuat',
-			data : { bookCreate }
+			data: { bookCreate }
 		})
-	} catch ( err ) {
+	} catch (err) {
 		console.log(err)
 
 		return res.status(500).json({
@@ -33,7 +33,7 @@ exports.create = async ( req, res ) => {
 	}
 }
 
-exports.all = async ( req, res ) => {
+exports.all = async (req, res) => {
 
 	try {
 
@@ -44,11 +44,11 @@ exports.all = async ( req, res ) => {
 			status: 200,
 			success: true,
 			message: '',
-			data : { book : dataBook }
+			data: { book: dataBook }
 		})
 	}
 
-	catch ( err ) {
+	catch (err) {
 		console.log(err)
 
 		return res.status(500).json({
@@ -61,20 +61,20 @@ exports.all = async ( req, res ) => {
 }
 
 // find by id
-exports.find = async ( req, res ) => {
+exports.find = async (req, res) => {
 	try {
 
 		const { id } = req.params
 
 		// find book by id
 		const book = await Book.findOne({
-			where : {
-				id : id
+			where: {
+				id: id
 			}
-		}) 
+		})
 
 		// check data book
-		if ( !book ) { // empty data
+		if (!book) { // empty data
 
 			return res.status(404).json({
 				status: 404,
@@ -87,12 +87,12 @@ exports.find = async ( req, res ) => {
 				status: 200,
 				success: true,
 				data: {
-					book : book
+					book: book
 				}
 			})
 
 		}
-	} catch ( err ) {
+	} catch (err) {
 		console.log(err)
 
 		return res.status(500).json({
@@ -104,7 +104,7 @@ exports.find = async ( req, res ) => {
 }
 
 // update data
-exports.update =  async( req, res ) => {
+exports.update = async (req, res) => {
 
 	try {
 
@@ -114,27 +114,27 @@ exports.update =  async( req, res ) => {
 
 		// update data
 		const updateBook = await Book.update(req.body, {
-			where : {
-				id : id
+			where: {
+				id: id
 			}
 		})
 
 		// check status update data
-		if ( !updateBook[0] ) {
+		if (!updateBook[0]) {
 			return res.status(200).json({
-				success : false,
+				success: false,
 				status: 200,
 				message: 'Update data book failed'
 			})
 		}
 
 		return res.status(200).json({
-			success : true,
+			success: true,
 			status: 200,
 			message: 'Update data book successfully'
 		})
 
-	}catch ( err ) {
+	} catch (err) {
 		console.log(err)
 
 		return res.status(500).json({

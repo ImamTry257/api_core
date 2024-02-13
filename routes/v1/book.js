@@ -7,7 +7,7 @@ const {
 	create,
 	find,
 	update
-} = require('../controllers/bookController')
+} = require('../../controllers/v1/bookController')
 
 
 // set route

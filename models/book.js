@@ -3,19 +3,19 @@ const db = require('../database/index')
 
 // create model for structure table tbl_book
 const Book = db.define('tbl_book', {
-	title : {
+	title: {
 		type: DataTypes.STRING,
 		allowNull: false
 	},
-	author : {
+	author: {
 		type: DataTypes.STRING,
 		allowNull: false
 	},
-	summary : {
+	summary: {
 		type: DataTypes.TEXT,
 		allowNull: false
 	},
-	publisher : {
+	publisher: {
 		type: DataTypes.STRING,
 		allowNull: false
 	}
