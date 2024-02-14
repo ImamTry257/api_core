@@ -31,3 +31,15 @@ exports.create = async (req, res) => {
         })
     }
 }
+
+// login user
+exports.login = async (req, res) => {
+
+    try {
+        const { username, password } = req.body
+
+        console.log(username, password)
+    } catch (error) {
+
+    }
+}

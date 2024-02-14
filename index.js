@@ -10,6 +10,8 @@ app.use(cors())
 // import model connect db
 const database = require('./database')
 
+// process.env.TZ = "Asia/Jakarta" 
+
 database
     .sync({ force: false })
     .then(() => {
@@ -23,6 +25,8 @@ database
 app.get('/', (req, res) => {
     res.send('Welcome to Core API using expressJs')
 })
+
+console.log(new Date())
 
 
 // import body parser
@@ -52,6 +56,10 @@ app.use('/api/v1/users', userRouterV1)
 // import route auth
 const authRouterV1 = require('./routes/v1/auth')
 app.use('/api/v1', authRouterV1)
+
+// import route encode
+const encodeRouter = require('./routes/baseData')
+app.use('/api/data', encodeRouter)
 
 // END IMPORT ROUTER API
 
