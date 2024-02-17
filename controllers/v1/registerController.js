@@ -13,6 +13,7 @@ exports.create = async (req, res) => {
             username,
             email,
             password
+            // remember_token
         })
 
         return res.status(201).json({
@@ -29,17 +30,5 @@ exports.create = async (req, res) => {
             success: false,
             message: 'Internal Server Error'
         })
-    }
-}
-
-// login user
-exports.login = async (req, res) => {
-
-    try {
-        const { username, password } = req.body
-
-        console.log(username, password)
-    } catch (error) {
-
     }
 }

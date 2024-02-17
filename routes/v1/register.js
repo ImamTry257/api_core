@@ -3,13 +3,11 @@ const router = require('express').Router()
 
 // get list controller
 const {
-    create,
-    login
-} = require('../../controllers/v1/authController')
+    create
+} = require('../../controllers/v1/registerController')
 
 
 // set route
 router.post('/register', create)
-router.post('/login', login)
 
 module.exports = router
