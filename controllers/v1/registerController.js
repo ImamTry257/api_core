@@ -13,6 +13,7 @@ exports.create = async (req, res) => {
             username,
             email,
             password
+            // remember_token
         })
 
         return res.status(201).json({

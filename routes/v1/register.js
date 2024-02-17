@@ -4,7 +4,7 @@ const router = require('express').Router()
 // get list controller
 const {
     create
-} = require('../../controllers/v1/authController')
+} = require('../../controllers/v1/registerController')
 
 
 // set route

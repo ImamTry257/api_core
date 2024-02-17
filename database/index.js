@@ -13,7 +13,8 @@ const {
 // connect db
 const database = new Sequelize(DB, USER, PASSWORD, {
 	host: HOST,
-	dialect: DIALECT
+	dialect: DIALECT,
+	timezone: 'Asia/Jakarta', // for writing to database
 })
 
 module.exports = database
