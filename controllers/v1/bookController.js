@@ -8,6 +8,12 @@ exports.create = async (req, res) => {
 		// init param body
 		const { title, author, summary, publisher } = req.body
 
+		if ( title == undefined || author == undefined || summary == undefined || publisher == undefined ) return res.status(200).json({
+			status: false,
+			code: 403,
+			message: 'Parameter not valid'
+		})
+
 		// store data book
 		const bookCreate = await Book.create({
 			title,
@@ -16,18 +22,18 @@ exports.create = async (req, res) => {
 			publisher
 		})
 
-		return res.status(201).json({
-			status: 201,
-			success: true,
+		return res.status(200).json({
+			status: true,
+			code: 201,
 			message: 'Data Buku berhasil dibuat',
 			data: { bookCreate }
 		})
 	} catch (err) {
 		console.log(err)
 
-		return res.status(500).json({
-			status: 500,
-			success: false,
+		return res.status(200).json({
+			status: false,
+			code: 500,
 			message: 'Internal Server Error'
 		})
 	}

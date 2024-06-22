@@ -1,4 +1,5 @@
 // init model
+const moment = require('moment')
 const User = require('../../models/user')
 const jwt = require('jsonwebtoken')
 
@@ -16,18 +17,19 @@ exports.login = async (req, res) => {
             }
         })
 
-        if ( userExisting == null ) return res.status(401).json({ message: 'Username and Password is wrong' });
+        if ( userExisting == null ) return res.status(401).json({ message: 'Username or Password is wrong' });
         
         const userId = userExisting.id
 
         // generate token, and insert to column remember token
         const remember_token = jwt.sign({
             id: userId,
-            username: userExisting.username
+            username: userExisting.username,
+            accessTime: moment().format('YYYY-MM-DD HH:mm:ss')
         }, process.env.KEY)
 
         // update token to user existing
-        const updateUser = await User.update({
+        await User.update({
             remember_token
         }, {
             where: {

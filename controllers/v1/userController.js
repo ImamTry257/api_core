@@ -1,7 +1,6 @@
 // init model
 const User = require('../../models/user')
 
-
 exports.all = async (req, res) => {
 
     try {
@@ -12,7 +11,6 @@ exports.all = async (req, res) => {
         return res.status(200).json({
             status: 200,
             success: true,
-            message: '',
             data: { user: dataUser }
         })
     }

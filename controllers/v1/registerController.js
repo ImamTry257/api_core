@@ -8,20 +8,39 @@ exports.create = async (req, res) => {
         // init param body
         const { username, email, password } = req.body
 
-        // store data book
-        const userRegistered = await User.create({
-            username,
-            email,
-            password
-            // remember_token
+        // check user by username
+        const checkUser = await User.findOne({
+            where : {
+                username : username
+            }
         })
 
-        return res.status(201).json({
-            status: 201,
-            success: true,
-            message: 'Register User berhasil',
-            data: { userRegistered }
-        })
+        let dataRes
+        if ( checkUser != null ) {
+            dataRes = {
+                status: false,
+                code: 401,
+                message: 'Username already registered'
+            }
+
+        } else {
+            // store data book
+            const userRegistered = await User.create({
+                username,
+                email,
+                password
+                // remember_token
+            })
+
+            dataRes = {
+                status: true,
+                code: 201,
+                message: 'Register User berhasil',
+                data: { userRegistered }
+            }
+        }
+
+        return res.status(200).json(dataRes)
     } catch (err) {
         console.log(err)
 
