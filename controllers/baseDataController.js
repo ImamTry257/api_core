@@ -1,12 +1,16 @@
+// import { getSHA256Hash } from "boring-webcrypto-sha256"
+const { createHash } = require('crypto');
+
 // store method for register user
-exports.encode = async (req, res) => {
+const encode = async (req, res) => {
 
     try {
         // init param body
         const { plaint_text } = req.body
 
         // encode data
-        const encodeData = await Buffer.from(plaint_text, 'binary').toString('base64')
+        // const encodeData = await Buffer.from(plaint_text, 'binary').toString('SHA-256')
+        const encodeData = createHash('sha256').update(plaint_text).digest('hex');
 
         return res.status(201).json({
             status: 201,
@@ -24,3 +28,5 @@ exports.encode = async (req, res) => {
         })
     }
 }
+
+module.exports = {encode};
