@@ -46,15 +46,18 @@ const authenticateJWT = (req, res, next) => {
         // set param
         const accessNow = moment().format('YYYY-MM-DD HH:mm:ss')
         const checkExpiredToken = moment(accessNow).diff(decoded.accessTime, 'seconds', false)
-
-        // check token is valid
+	
+	// console.log(checkExpiredToken, decoded.accessTime, accessNow);
+	
+	// check token is valid
         // 3000 seconds
-        if ( checkExpiredToken > 3000 ) {
+        if ( checkExpiredToken > 3000 || checkExpiredToken == 0 ) {
             res.status(200).json({ 
                 status: false,
                 message: 'Invalid token',
-                diffAccess: checkExpiredToken
+                // diffAccess: checkExpiredToken
              });
+	    return false
         }
 
         // set user data
